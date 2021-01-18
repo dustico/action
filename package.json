@@ -1,0 +1,27 @@
+{
+  "name": "action",
+  "version": "1.1.0",
+  "description": "This GitHub Action analyses the OSS dependencies via Dustico platform",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dustico/action"
+  },
+  "keywords": [
+    "actions",
+    "dustico",
+    "node"
+  ],
+  "author": "Jossef Harush",
+  "license": "Apache License v2",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.20.4"
+  }
+}
