@@ -6,8 +6,11 @@ inputs:
     required: true
     description: "an API token provided by dustico support team"
   package_json_path:
-    required: true
+    required: false
     description: "the path to your package.json file"
+  requirements_txt_path:
+    required: false
+    description: "the path to your requirements.txt file"
   dry_run:
     required: false
     default: ""
