@@ -1,20 +1,13 @@
 name: 'Dustico Analyser'
-description: 'This GitHub Action analyses the OSS dependencies via Dustico platform'
-author: 'Jossef Harush'
+description: 'This GitHub Action analyses the OSS dependencies via Dustico SaaS platform'
+author: 'Dustico'
 inputs:
-  dustico_token:
+  api_token:
     required: true
-    description: "an API token provided by dustico support team"
-  package_json_path:
+    description: "an API token provided by Dustico. contact us at https://dusti.co"
+  options:
     required: false
-    description: "the path to your package.json file"
-  requirements_txt_path:
-    required: false
-    description: "the path to your requirements.txt file"
-  dry_run:
-    required: false
-    default: ""
-    description: "optional. if set to any non-empty value will not interfere with the CI completion"
+    description: "optional"
 runs:
   using: 'node12'
   main: 'dist/index.js'
