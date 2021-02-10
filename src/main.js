@@ -2,7 +2,7 @@ const core = require("@actions/core");
 const fs = require("fs");
 const fsExtra = require("fs-extra");
 const path = require("path");
-const axios = require('axios');
+const http = require('http');
 const childProcess = require('child_process');
 
 const DUSTICO_CODE_ANALYZER_FILE_NAME = 'code-analyzer';
@@ -10,19 +10,9 @@ const DUSTICO_DIR_NAME = '.dustico';
 const DUSTICO_BUCKET_NAME = 'dustico';
 const DUSTICO_EXIT_CODE_FAIL_RUN = 4;
 
-async function downloadFile(url, filePath) {
-    const writer = fs.createWriteStream(filePath);
-    const response = await axios({
-        url,
-        method: 'GET',
-        timeout: 10000,
-        responseType: 'stream'
-    });
-    response.data.pipe(writer);
-    return new Promise((resolve, reject) => {
-        writer.on('finish', resolve)
-        writer.on('error', reject)
-    });
+function downloadFile(url, filePath) {
+    let command = `curl -o ${filePath}  '${url}'`;
+    let result = childProcess.execSync(command);
 }
 
 async function runAnalyzer(filePath) {
@@ -40,7 +30,7 @@ async function main() {
 
         fsExtra.ensureDirSync(dusticoDirPath);
         try {
-            await downloadFile(analyzerUrl, analyzerFilePath)
+            downloadFile(analyzerUrl, analyzerFilePath)
             fs.chmodSync(analyzerFilePath, 0o777);
             let exitCode = await runAnalyzer(analyzerFilePath);
             if (exitCode === DUSTICO_EXIT_CODE_FAIL_RUN) {
